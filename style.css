@@ -1,0 +1,194 @@
+:root{
+  --bg:#f6f8fb;
+  --card:#fff;
+  --accent:#2563eb;
+  --good:#059669;
+  --bad:#dc2626;
+  --muted:#6b7280;
+  --muted-2:#6b728070;
+}
+
+*{box-sizing:border-box}
+body{
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+  margin:0;
+  background:var(--bg);
+  color:#111827;
+  /* Increased top and left spacing */
+  padding:48px 32px 32px 48px;
+}
+
+.container{
+  max-width:920px;
+  margin:0 auto;
+  background:var(--card);
+  padding:24px;
+  border-radius:10px;
+  box-shadow:0 6px 24px rgba(16,24,40,0.06);
+}
+
+/* Two-column layout: form on the left, explanation on the right */
+.grid{
+  display:grid;
+  grid-template-columns: 1fr 320px;
+  gap:20px;
+  align-items:start;
+}
+
+/* Left column (form + notes) */
+.left {}
+
+/* Right column (explanation panel) */
+.explanation{
+  background:#f8fafc;
+  border:1px solid #e6eefb;
+  padding:16px;
+  border-radius:10px;
+  color:#0f172a;
+  line-height:1.45;
+  font-size:14px;
+}
+
+/* Separator above the "How it works" heading */
+.explanation-sep{
+  border:0;
+  height:1px;
+  background:linear-gradient(90deg, rgba(230,238,251,1), rgba(230,238,251,1));
+  margin:0 0 12px 0;
+  border-radius:1px;
+}
+
+/* Separator above the generator controls */
+.form-sep{
+  border:0;
+  height:1px;
+  background:linear-gradient(90deg, rgba(230,238,251,1), rgba(230,238,251,1));
+  margin:16px 0;
+  border-radius:1px;
+}
+
+.explanation h2{margin-top:0;font-size:16px}
+.explanation h3{margin-bottom:6px;font-size:14px}
+.explanation ol{padding-left:18px;margin-top:8px}
+.explanation .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,monospace;background:#fff;padding:6px 8px;border-radius:6px;border:1px solid #eef2ff}
+.explanation .mono.small{font-size:13px;padding:4px 6px;margin-top:6px}
+.explanation p{margin:8px 0}
+.explain-footer{margin-top:8px;color:var(--muted)}
+
+/* Luhn calculation area */
+.luhn-calc{background:#fff;padding:10px;border-radius:8px;border:1px solid #eef6ff;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,monospace;font-size:13px;color:#0b1220}
+.luhn-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;align-items:center}
+.luhn-digit{background:#f3f6ff;padding:6px 8px;border-radius:6px;border:1px solid #e6efff;min-width:28px;text-align:center}
+.luhn-digit.doubled{background:#fff7ed;border:1px solid #ffedd5}
+.luhn-note{color:var(--muted);font-size:13px;margin-top:6px}
+.luhn-exp{margin-top:8px;color:#0b1220;word-break:break-word}
+
+/* Form & inputs */
+h1{margin:0 0 12px 0;font-size:20px}
+label{font-weight:600;font-size:13px;color:var(--muted)}
+.input-row{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  margin-top:8px;
+}
+
+/* Card icon / input / type / eye layout */
+.card-icon{
+  width:36px;
+  height:24px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:6px;
+  background:transparent;
+}
+#card-number{
+  flex:1;
+  padding:12px 14px;
+  font-size:16px;
+  border:1px solid #d1d5db;
+  border-radius:8px;
+  outline:none;
+  transition:box-shadow .12s, border-color .12s;
+}
+
+#card-number:focus{border-color:var(--accent); box-shadow:0 0 0 4px rgba(37,99,235,0.06)}
+
+.card-type{
+  min-width:88px;
+  text-align:center;
+  font-size:13px;
+  color:var(--muted);
+  background:#f3f4f6;
+  padding:8px 10px;
+  border-radius:8px;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+}
+
+/* eye button */
+.eye-btn{
+  background:transparent;
+  border:0;
+  padding:6px;
+  margin-left:2px;
+  border-radius:6px;
+  cursor:pointer;
+  color:var(--muted);
+}
+.eye-btn:hover{background:#f3f4f6;color:#111827}
+.eye-btn.active{color:var(--accent)}
+
+/* small helper and result */
+.helper{margin:10px 0 14px 0;color:var(--muted);font-size:14px}
+
+button{
+  background:var(--accent);
+  color:#fff;
+  border:0;
+  padding:10px 14px;
+  border-radius:8px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+button:disabled{opacity:.6; cursor:not-allowed}
+
+.result{
+  margin-top:14px;
+  padding:10px 12px;
+  border-radius:8px;
+  font-weight:600;
+}
+
+.result.good{background:rgba(5,150,105,0.08); color:var(--good); border:1px solid rgba(5,150,105,0.12)}
+.result.bad{background:rgba(220,38,38,0.06); color:var(--bad); border:1px solid rgba(220,38,38,0.12)}
+
+/* Generator controls */
+.generate-row{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  margin-top:12px;
+  flex-wrap:wrap;
+}
+.generate-label{font-size:13px;color:var(--muted);font-weight:600}
+.generate-prefix{padding:8px;border-radius:6px;border:1px solid #e5e7eb;background:#fff;min-width:120px}
+#generate-length{padding:8px;border-radius:6px;border:1px solid #e5e7eb;background:#fff}
+.generate-btn{background:#111827;padding:8px 10px;border-radius:8px;color:#fff}
+
+/* small note */
+.generate-note{margin:6px 0 0 0;color:var(--muted)}
+
+/* Notes section */
+.notes{margin-top:18px}
+.notes h2{font-size:15px;margin-bottom:6px}
+.notes ul{margin:0;padding-left:18px;color:var(--muted)}
+
+/* Responsive: stack columns on small screens */
+@media (max-width:760px){
+  .grid{grid-template-columns:1fr}
+  .explanation{order:2;margin-top:12px}
+}

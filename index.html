@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Card Luhn (Mod10) Check — Demo</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>Card Luhn (Mod10) Check</h1>
+
+    <div class="grid">
+      <section class="left">
+        <form id="card-form" novalidate>
+          <label for="card-number">Card number</label>
+          <div class="input-row">
+            <span id="card-icon" class="card-icon" aria-hidden="true"></span>
+            <input id="card-number" name="card-number" inputmode="numeric" autocomplete="cc-number"
+                   placeholder="•••• •••• •••• 3456" maxlength="40" />
+            <span id="card-type" class="card-type">Unknown</span>
+
+            <button id="toggle-mask" type="button" class="eye-btn" aria-label="Show card number">
+              <!-- eye icon toggles in JS by changing class; svg kept here for accessibility -->
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+          <p id="helper" class="helper">Enter your card number — spaces allowed.</p>
+
+          <button id="submit-btn" type="submit">Validate</button>
+          <div id="result" class="result" aria-live="polite"></div>
+
+          <!-- Separator and generator controls -->
+          <hr class="form-sep" aria-hidden="true" />
+          <div class="generate-row">
+            <label for="generate-prefix" class="generate-label">Starting digits</label>
+            <input id="generate-prefix" class="generate-prefix" inputmode="numeric" placeholder="Optional prefix" />
+
+            <label for="generate-length" class="generate-label">Length</label>
+            <select id="generate-length" aria-label="Generate Luhn length">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16" selected>16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+            </select>
+
+            <button id="generate-btn" type="button" class="generate-btn">Generate valid number</button>
+          </div>
+          <p class="generate-note"><small>Generated numbers are for testing only.</small></p>
+        </form>
+
+        <section class="notes">
+          <h2>Notes</h2>
+          <ul>
+            <li>Validation uses the Luhn (Mod10) algorithm — client-side only.</li>
+            <li>Do not rely on client-side validation for production security — always validate on the server.</li>
+          </ul>
+        </section>
+      </section>
+
+      <aside class="explanation" aria-labelledby="explain-title">
+        <hr class="explanation-sep" aria-hidden="true" />
+        <h2 id="explain-title">How the Luhn (Mod10) check works</h2>
+        <p>
+          The Luhn algorithm (Mod10) is a simple checksum used to validate identification numbers such as
+          credit-card numbers. The check verifies that the digits follow a pattern that reduces common input
+          errors (typos).
+        </p>
+
+        <ol>
+          <li>Remove any non-digit characters (spaces, dashes).</li>
+          <li>Starting from the rightmost digit, double every second digit.</li>
+          <li>If doubling produces a number &gt; 9, subtract 9 from it (or equivalently, sum the digits).</li>
+          <li>Sum all resulting digits. If the total modulo 10 is 0, the number passes the Luhn check.</li>
+        </ol>
+
+        <h3>Live calculation for entered number</h3>
+        <div id="luhn-calc" class="luhn-calc" aria-live="polite">
+          <p class="muted">Enter a card number to see a step-by-step Luhn calculation here.</p>
+        </div>
+
+        <h3>Quick example</h3>
+        <p class="mono">
+          Number: 7992 7398 713
+        </p>
+        <p class="mono small">
+          Process (right to left):
+          3,1,7,8,9,3,7,2,9,9,7
+        </p>
+        <p class="mono">
+          Doubling every second from the right and normalizing:
+          3 + (1×2=2) + 7 + (8×2=16 → 7) + 9 + (3×2=6) + 7 + (2×2=4) + 9 + (9×2=18 → 9) + 7 = 70
+        </p>
+        <p>
+          70 % 10 = 0 → valid
+        </p>
+
+        <footer class="explain-footer">
+          <small>
+            Note: This check only tests the number format/checksum. It does not confirm card issuance,
+            expiry, or available funds.
+          </small>
+        </footer>
+      </aside>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
